@@ -77,7 +77,7 @@ fun main() {
         .start()
 }
 
-fun addMessagesAtRegularIntervals() {
+fun chooseRandomMessage() {
     val messagesToAdd = listOf(
         "Hello",
         "Goodbye",
@@ -93,12 +93,17 @@ fun addMessagesAtRegularIntervals() {
         "José Raúl Capablanca was world champion from 1921 to 1927"
     )
 
-    val scheduler = Executors.newScheduledThreadPool(1)
     val random = Random(Clock.systemDefaultZone().millis())
 
-    scheduler.scheduleAtFixedRate({
-        val message = messagesToAdd[random.nextInt(0, messagesToAdd.size)]
+    val message = messagesToAdd[random.nextInt(0, messagesToAdd.size)]
 
-        messages.addLast(message)
-    }, 5, 3, SECONDS)
+    messages.addLast(message)
+}
+
+fun addMessagesAtRegularIntervals() {
+    val scheduler = Executors.newScheduledThreadPool(1)
+
+    scheduler.scheduleAtFixedRate(
+        ::chooseRandomMessage, 5, 3, SECONDS
+    )
 }
