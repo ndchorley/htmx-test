@@ -24,6 +24,14 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit.SECONDS
 import kotlin.random.Random
 
+fun main() {
+    addMessagesAtRegularIntervals()
+
+    printRequest.then(router)
+        .asServer(Jetty(8000))
+        .start()
+}
+
 val renderTemplate = HandlebarsTemplates().CachingClasspath()
 
 object View : ViewModel
@@ -68,14 +76,6 @@ val router =
                 .body(renderTemplate(Message(latestMessage)))
         }
     )
-
-fun main() {
-    addMessagesAtRegularIntervals()
-
-    printRequest.then(router)
-        .asServer(Jetty(8000))
-        .start()
-}
 
 val random = Random(Clock.systemDefaultZone().millis())
 
