@@ -3,7 +3,9 @@
         <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     </head>
     <body>
-        <h2>Hello!</h2>
+        <div id="latest-message" hx-get="/latest-message" hx-trigger="every 2s"></div>
+
+        <hr />
 
         <div id="message"></div>
         <div>
