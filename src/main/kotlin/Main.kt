@@ -77,6 +77,8 @@ fun main() {
         .start()
 }
 
+val random = Random(Clock.systemDefaultZone().millis())
+
 fun chooseRandomMessage() {
     val messagesToAdd = listOf(
         "Hello",
@@ -92,8 +94,6 @@ fun chooseRandomMessage() {
         "My very easy method just speeds up naming planets",
         "José Raúl Capablanca was world champion from 1921 to 1927"
     )
-
-    val random = Random(Clock.systemDefaultZone().millis())
 
     val message = messagesToAdd[random.nextInt(0, messagesToAdd.size)]
 
