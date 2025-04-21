@@ -45,8 +45,6 @@ val printRequest = Filter { next ->
     }
 }
 
-var countOfClicks = 0
-
 var latestMessageRequests = 0
 val messages = ConcurrentLinkedDeque<String>()
 
@@ -55,15 +53,6 @@ val router =
         "/" bind GET to { _ ->
             val page = renderTemplate(View)
             Response(OK).body(page)
-        },
-
-        "/clicked" bind POST to { _ ->
-            countOfClicks++
-
-            val timeOrTimes =
-                if (countOfClicks == 1) "time" else "times"
-
-            Response(OK).body("Clicked $countOfClicks $timeOrTimes")
         },
 
         "/latest-message" bind GET to { _ ->

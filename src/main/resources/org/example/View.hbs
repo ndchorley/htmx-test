@@ -4,12 +4,5 @@
     </head>
     <body>
         <div id="latest-message" hx-get="/latest-message" hx-trigger="every 2s" hx-swap="afterbegin"></div>
-
-        <hr />
-
-        <div id="message"></div>
-        <div>
-            <button hx-post="/clicked" hx-target="#message">Click me</button>
-        </div>
     </body>
 </html>
