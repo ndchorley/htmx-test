@@ -5,5 +5,5 @@ import org.http4k.template.ViewModel
 
 val renderTemplate = HandlebarsTemplates().CachingClasspath()
 
-object View : ViewModel
+object HomePage : ViewModel
 data class Message(val message: String) : ViewModel
