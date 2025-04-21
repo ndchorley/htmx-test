@@ -11,17 +11,15 @@ class LatestMessage(
 
     override fun invoke(request: Request): Response {
         latestMessageRequests++
-        
-        val response =
-            if (latestMessageRequests > 40) Response(Status(286, null))
-            else {
-                val latestMessage = messages.removeFirst()
 
-                Response(Status.OK)
-                    .contentType(ContentType.TEXT_HTML)
-                    .body(renderTemplate(Message(latestMessage)))
-            }
+        if (latestMessageRequests > 40)
+            return Response(Status(286, null))
 
-        return response
+        val latestMessage = messages.removeFirst()
+
+        return Response(Status.OK)
+            .contentType(ContentType.TEXT_HTML)
+            .body(renderTemplate(Message(latestMessage)))
+
     }
 }
