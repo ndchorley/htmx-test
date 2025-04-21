@@ -55,10 +55,16 @@ private val messagesToChooseFrom =
         "What would your dream treehouse look like?"
     )
 
-private fun addRandomMessage(messages: ConcurrentLinkedDeque<String>) {
+private fun chooseRandomMessage(): String {
     val randomIndex = Random.nextInt(0, messagesToChooseFrom.size)
+
     val message = messagesToChooseFrom[randomIndex]
+
+    return message
+}
+
+private fun addRandomMessage(messages: ConcurrentLinkedDeque<String>) {
+    val message = chooseRandomMessage()
 
     messages.addLast(message)
 }
-
