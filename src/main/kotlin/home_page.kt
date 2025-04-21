@@ -6,5 +6,6 @@ import org.http4k.core.Status.Companion.OK
 
 fun homePage(request: Request): Response {
     val page = renderTemplate(HomePage)
+
     return Response(OK).body(page)
 }
