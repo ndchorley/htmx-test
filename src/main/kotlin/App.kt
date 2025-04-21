@@ -9,7 +9,7 @@ import org.http4k.server.asServer
 import java.util.concurrent.ConcurrentLinkedDeque
 
 class App(messages: ConcurrentLinkedDeque<String>) {
-    val router =
+    private val router =
         routes(
             "/" bind GET to ::homePage,
             "/latest-message" bind GET to LatestMessage(messages)
