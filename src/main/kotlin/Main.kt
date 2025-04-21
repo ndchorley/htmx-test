@@ -38,7 +38,6 @@ val printRequest = Filter { next ->
     }
 }
 
-var latestMessageRequests = 0
 val messages = ConcurrentLinkedDeque<String>()
 
 class LatestMessage : HttpHandler {
@@ -55,6 +54,8 @@ class LatestMessage : HttpHandler {
             }
         return response
     }
+
+    private var latestMessageRequests = 0
 }
 
 val router =
