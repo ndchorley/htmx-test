@@ -13,13 +13,16 @@ fun main() {
 
     addMessagesAtRegularIntervals(messages)
 
-    val router =
-        routes(
-            "/" bind GET to ::homePage,
-            "/latest-message" bind GET to LatestMessage(messages)
-        )
+    class App {
+        val router =
+            routes(
+                "/" bind GET to ::homePage,
+                "/latest-message" bind GET to LatestMessage(messages)
+            )
 
-    printRequest.then(router)
-        .asServer(Jetty(8000))
-        .start()
+        val server = printRequest.then(router)
+            .asServer(Jetty(8000))
+    }
+
+    App().server.start()
 }
