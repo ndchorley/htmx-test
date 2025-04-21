@@ -1,12 +1,9 @@
 package org.example
 
-import org.http4k.core.ContentType
-import org.http4k.core.Filter
+import org.http4k.core.*
 import org.http4k.core.Method.GET
 import org.http4k.core.Method.POST
-import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
-import org.http4k.core.then
 import org.http4k.lens.contentType
 import org.http4k.routing.bind
 import org.http4k.routing.routes
@@ -50,6 +47,7 @@ val printRequest = Filter { next ->
 
 var countOfClicks = 0
 
+var latestMessageRequests = 0
 val messages = ConcurrentLinkedDeque<String>()
 
 val router =
@@ -69,11 +67,19 @@ val router =
         },
 
         "/latest-message" bind GET to { _ ->
-            val latestMessage = messages.removeFirst()
+            latestMessageRequests++
 
-            Response(OK)
-                .contentType(ContentType.TEXT_HTML)
-                .body(renderTemplate(Message(latestMessage)))
+            val response =
+                if (latestMessageRequests > 30) Response(Status(286, null))
+                else {
+                    val latestMessage = messages.removeFirst()
+
+                    Response(OK)
+                        .contentType(ContentType.TEXT_HTML)
+                        .body(renderTemplate(Message(latestMessage)))
+                }
+
+            response
         }
     )
 
