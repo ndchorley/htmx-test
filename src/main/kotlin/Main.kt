@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit.SECONDS
 import kotlin.random.Random
 
 fun main() {
-    addMessagesAtRegularIntervals()
+    addMessagesAtRegularIntervals(messages)
 
     printRequest.then(router)
         .asServer(Jetty(8000))
@@ -71,7 +71,7 @@ val router =
         }
     )
 
-fun addRandomMessage() {
+fun addRandomMessage(messages: ConcurrentLinkedDeque<String>) {
     val messagesToChooseFrom =
         listOf(
             "Hello",
@@ -114,10 +114,10 @@ fun addRandomMessage() {
     messages.addLast(message)
 }
 
-fun addMessagesAtRegularIntervals() {
+fun addMessagesAtRegularIntervals(messages: ConcurrentLinkedDeque<String>) {
     val scheduler = Executors.newScheduledThreadPool(1)
 
     scheduler.scheduleAtFixedRate(
-        ::addRandomMessage, 5, 1, SECONDS
+        { addRandomMessage(messages) }, 5, 1, SECONDS
     )
 }
