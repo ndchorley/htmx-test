@@ -12,14 +12,8 @@ fun addMessagesAtRegularIntervals(messages: ConcurrentLinkedDeque<String>) {
     val scheduler = Executors.newScheduledThreadPool(1)
 
     scheduler.scheduleAtFixedRate(
-        { addRandomMessage(messages) }, 5, 1, SECONDS
+        { messages.addLast(chooseRandomMessage()) }, 5, 1, SECONDS
     )
-}
-
-private fun addRandomMessage(messages: ConcurrentLinkedDeque<String>) {
-    val message = chooseRandomMessage()
-
-    messages.addLast(message)
 }
 
 private fun chooseRandomMessage(): String {
