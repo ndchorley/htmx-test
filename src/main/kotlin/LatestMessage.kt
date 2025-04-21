@@ -11,6 +11,7 @@ class LatestMessage(
 
     override fun invoke(request: Request): Response {
         latestMessageRequests++
+        
         val response =
             if (latestMessageRequests > 40) Response(Status(286, null))
             else {
@@ -20,6 +21,7 @@ class LatestMessage(
                     .contentType(ContentType.TEXT_HTML)
                     .body(renderTemplate(Message(latestMessage)))
             }
+
         return response
     }
 }
