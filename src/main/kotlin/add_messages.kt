@@ -16,8 +16,19 @@ fun addMessagesAtRegularIntervals(messages: ConcurrentLinkedDeque<String>) {
     )
 }
 
-private fun currentDayOfTheWeek() =
-    LocalDate.now().dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+private fun addRandomMessage(messages: ConcurrentLinkedDeque<String>) {
+    val message = chooseRandomMessage()
+
+    messages.addLast(message)
+}
+
+private fun chooseRandomMessage(): String {
+    val randomIndex = Random.nextInt(0, messagesToChooseFrom.size)
+
+    val message = messagesToChooseFrom[randomIndex]
+
+    return message
+}
 
 private val messagesToChooseFrom =
     listOf(
@@ -55,16 +66,5 @@ private val messagesToChooseFrom =
         "What would your dream treehouse look like?"
     )
 
-private fun chooseRandomMessage(): String {
-    val randomIndex = Random.nextInt(0, messagesToChooseFrom.size)
-
-    val message = messagesToChooseFrom[randomIndex]
-
-    return message
-}
-
-private fun addRandomMessage(messages: ConcurrentLinkedDeque<String>) {
-    val message = chooseRandomMessage()
-
-    messages.addLast(message)
-}
+private fun currentDayOfTheWeek() =
+    LocalDate.now().dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
