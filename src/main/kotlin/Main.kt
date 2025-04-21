@@ -79,7 +79,7 @@ val router =
 
 val random = Random(Clock.systemDefaultZone().millis())
 
-fun chooseRandomMessage() {
+fun addRandomMessage() {
     val messagesToAdd = listOf(
         "Hello",
         "Goodbye",
@@ -104,6 +104,6 @@ fun addMessagesAtRegularIntervals() {
     val scheduler = Executors.newScheduledThreadPool(1)
 
     scheduler.scheduleAtFixedRate(
-        ::chooseRandomMessage, 5, 3, SECONDS
+        ::addRandomMessage, 5, 3, SECONDS
     )
 }
