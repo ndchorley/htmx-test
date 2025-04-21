@@ -1,5 +1,7 @@
 plugins {
     kotlin("jvm") version "2.1.20"
+    id("application")
+    id("com.gradleup.shadow") version "9.0.0-beta12"
 }
 
 group = "org.example"
@@ -19,4 +21,8 @@ dependencies {
 
 kotlin {
     jvmToolchain(21)
+}
+
+application {
+    mainClass = "org.example.MainKt"
 }
