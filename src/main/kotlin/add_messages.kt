@@ -16,12 +16,15 @@ fun addMessagesAtRegularIntervals(messages: ConcurrentLinkedDeque<String>) {
     )
 }
 
+private fun currentDayOfTheWeek() =
+    LocalDate.now().dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+
 private val messagesToChooseFrom =
     listOf(
         "Hello",
         "Goodbye",
         "This is a test",
-        "It's ${LocalDate.now().dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH)}",
+        "It's ${currentDayOfTheWeek()}",
         "This app was written with http4k and htmx",
         "The quick brown fox jumped over the lazy dog",
         "Lorem ipsum",
