@@ -59,7 +59,7 @@ val router =
             latestMessageRequests++
 
             val response =
-                if (latestMessageRequests > 30) Response(Status(286, null))
+                if (latestMessageRequests > 40) Response(Status(286, null))
                 else {
                     val latestMessage = messages.removeFirst()
 
