@@ -71,8 +71,6 @@ val router =
         }
     )
 
-val random = Random(Clock.systemDefaultZone().millis())
-
 fun addRandomMessage() {
     val messagesToAdd = listOf(
         "Hello",
@@ -109,7 +107,7 @@ fun addRandomMessage() {
         "What would your dream treehouse look like?"
     )
 
-    val message = messagesToAdd[random.nextInt(0, messagesToAdd.size)]
+    val message = messagesToAdd[Random.nextInt(0, messagesToAdd.size)]
 
     messages.addLast(message)
 }
