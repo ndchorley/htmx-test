@@ -13,7 +13,7 @@ fun main() {
 
     addMessagesAtRegularIntervals(messages)
 
-    class App {
+    class App(messages: ConcurrentLinkedDeque<String>) {
         val router =
             routes(
                 "/" bind GET to ::homePage,
@@ -24,5 +24,5 @@ fun main() {
             .asServer(Jetty(8000))
     }
 
-    App().server.start()
+    App(messages).server.start()
 }
