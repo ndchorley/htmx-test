@@ -43,10 +43,7 @@ val messages = ConcurrentLinkedDeque<String>()
 
 val router =
     routes(
-        "/" bind GET to { _ ->
-            val page = renderTemplate(View)
-            Response(OK).body(page)
-        },
+        "/" bind GET to ::homePage,
 
         "/latest-message" bind GET to { _ ->
             latestMessageRequests++
