@@ -40,7 +40,11 @@ val printRequest = Filter { next ->
 
 val messages = ConcurrentLinkedDeque<String>()
 
-class LatestMessage : HttpHandler {
+class LatestMessage(
+    private val messages: ConcurrentLinkedDeque<String>
+) : HttpHandler {
+    private var latestMessageRequests = 0
+
     override fun invoke(request: Request): Response {
         latestMessageRequests++
         val response =
@@ -54,12 +58,10 @@ class LatestMessage : HttpHandler {
             }
         return response
     }
-
-    private var latestMessageRequests = 0
 }
 
 val router =
     routes(
         "/" bind GET to ::homePage,
-        "/latest-message" bind GET to LatestMessage()
+        "/latest-message" bind GET to LatestMessage(messages)
     )
