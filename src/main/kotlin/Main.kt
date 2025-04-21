@@ -41,23 +41,24 @@ val printRequest = Filter { next ->
 var latestMessageRequests = 0
 val messages = ConcurrentLinkedDeque<String>()
 
+fun latestMessage(request: Request): Response {
+    latestMessageRequests++
+
+    val response =
+        if (latestMessageRequests > 40) Response(Status(286, null))
+        else {
+            val latestMessage = messages.removeFirst()
+
+            Response(OK)
+                .contentType(ContentType.TEXT_HTML)
+                .body(renderTemplate(Message(latestMessage)))
+        }
+
+    return response
+}
+
 val router =
     routes(
         "/" bind GET to ::homePage,
-
-        "/latest-message" bind GET to { _ ->
-            latestMessageRequests++
-
-            val response =
-                if (latestMessageRequests > 40) Response(Status(286, null))
-                else {
-                    val latestMessage = messages.removeFirst()
-
-                    Response(OK)
-                        .contentType(ContentType.TEXT_HTML)
-                        .body(renderTemplate(Message(latestMessage)))
-                }
-
-            response
-        }
+        "/latest-message" bind GET to ::latestMessage
     )
