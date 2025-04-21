@@ -7,12 +7,12 @@ import java.util.concurrent.ConcurrentLinkedDeque
 class LatestMessage(
     private val messages: ConcurrentLinkedDeque<String>
 ) : HttpHandler {
-    private var latestMessageRequests = 0
+    private var requestCount = 0
 
     override fun invoke(request: Request): Response {
-        latestMessageRequests++
+        requestCount++
 
-        if (latestMessageRequests > 40)
+        if (requestCount > 40)
             return Response(Status(286, null))
 
         val latestMessage = messages.removeFirst()
