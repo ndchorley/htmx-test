@@ -15,6 +15,8 @@ class App(messages: ConcurrentLinkedDeque<String>) {
             "/latest-message" bind GET to LatestMessage(messages)
         )
 
-    val server = printRequest.then(router)
-        .asServer(Jetty(8000))
+    private val server =
+        printRequest.then(router).asServer(Jetty(8000))
+
+    fun start() = server.start()
 }

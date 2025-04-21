@@ -7,5 +7,5 @@ fun main() {
 
     addMessagesAtRegularIntervals(messages)
 
-    App(messages).server.start()
+    App(messages).start()
 }
