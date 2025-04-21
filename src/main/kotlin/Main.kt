@@ -2,7 +2,6 @@ package org.example
 
 import org.http4k.core.*
 import org.http4k.core.Method.GET
-import org.http4k.core.Method.POST
 import org.http4k.core.Status.Companion.OK
 import org.http4k.lens.contentType
 import org.http4k.routing.bind
