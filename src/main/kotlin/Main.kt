@@ -9,17 +9,17 @@ import org.http4k.server.asServer
 import java.util.concurrent.ConcurrentLinkedDeque
 
 fun main() {
+    val messages = ConcurrentLinkedDeque<String>()
+
     addMessagesAtRegularIntervals(messages)
+
+    val router =
+        routes(
+            "/" bind GET to ::homePage,
+            "/latest-message" bind GET to LatestMessage(messages)
+        )
 
     printRequest.then(router)
         .asServer(Jetty(8000))
         .start()
 }
-
-val messages = ConcurrentLinkedDeque<String>()
-
-val router =
-    routes(
-        "/" bind GET to ::homePage,
-        "/latest-message" bind GET to LatestMessage(messages)
-    )
