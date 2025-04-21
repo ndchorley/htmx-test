@@ -17,9 +17,10 @@ class LatestMessage(
 
         val latestMessage = messages.removeFirst()
 
+        val html = renderTemplate(Message(latestMessage))
+
         return Response(Status.OK)
             .contentType(ContentType.TEXT_HTML)
-            .body(renderTemplate(Message(latestMessage)))
-
+            .body(html)
     }
 }
