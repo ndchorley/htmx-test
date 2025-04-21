@@ -1,9 +1,8 @@
 package org.example
 
-import org.http4k.core.*
+import org.http4k.core.Filter
 import org.http4k.core.Method.GET
-import org.http4k.core.Status.Companion.OK
-import org.http4k.lens.contentType
+import org.http4k.core.then
 import org.http4k.routing.bind
 import org.http4k.routing.routes
 import org.http4k.server.Jetty
@@ -39,26 +38,6 @@ val printRequest = Filter { next ->
 }
 
 val messages = ConcurrentLinkedDeque<String>()
-
-class LatestMessage(
-    private val messages: ConcurrentLinkedDeque<String>
-) : HttpHandler {
-    private var latestMessageRequests = 0
-
-    override fun invoke(request: Request): Response {
-        latestMessageRequests++
-        val response =
-            if (latestMessageRequests > 40) Response(Status(286, null))
-            else {
-                val latestMessage = messages.removeFirst()
-
-                Response(OK)
-                    .contentType(ContentType.TEXT_HTML)
-                    .body(renderTemplate(Message(latestMessage)))
-            }
-        return response
-    }
-}
 
 val router =
     routes(
