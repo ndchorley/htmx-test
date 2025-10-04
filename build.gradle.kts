@@ -1,7 +1,7 @@
 plugins {
     kotlin("jvm") version "2.2.20"
     id("application")
-    id("com.gradleup.shadow") version "9.0.0-beta12"
+    id("com.gradleup.shadow") version "9.2.2"
 }
 
 group = "org.example"
