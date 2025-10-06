@@ -16,9 +16,18 @@ fun addMessagesAtRegularIntervals(messages: ConcurrentLinkedDeque<String>) {
     )
 }
 
-private fun aRandomMessage(): String {
-    val randomIndex = Random.nextInt(0, messagesToChooseFrom.size)
+private val seenIndicies = mutableSetOf<Int>()
 
+private fun aRandomMessage(): String {
+    if (seenIndicies.size >= 0.8 * messagesToChooseFrom.size) seenIndicies.clear()
+
+    var randomIndex = Random.nextInt(0, messagesToChooseFrom.size)
+    
+    while (seenIndicies.contains(randomIndex))
+        randomIndex = Random.nextInt(0, messagesToChooseFrom.size)
+    
+    seenIndicies.add(randomIndex)
+    
     val message = messagesToChooseFrom[randomIndex]
 
     return message
@@ -157,8 +166,8 @@ private val messagesToChooseFrom =
         "The Earth’s circumference is about 40,075 kilometers.",
         "The human brain can store about 2.5 petabytes of data.",
         "The tallest tree ever recorded was over 115 meters tall.",
-        "The human body has about 100,000 miles of blood vessels.",
-        )
+        "The human body has about 100,000 miles of blood vessels."
+    )
 
 private fun currentDayOfTheWeek() =
     LocalDate.now().dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
